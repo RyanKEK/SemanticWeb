@@ -1,0 +1,31 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?universityName (COUNT(DISTINCT ?winner) AS ?nobelWinners)
+WHERE {
+  # Select individuals who have received the Nobel Prize in Physics
+  ?winner dbo:award dbr:Nobel_Prize_in_Physics .
+  
+  # Ensure the winner is a person
+  ?winner a dbo:Person .
+  
+  # Retrieve associated universities via almaMater or affiliation
+  {
+    ?winner dbo:almaMater ?university .
+  }
+  UNION
+  {
+    ?winner dbo:affiliation ?university .
+  }
+
+  # Ensure the associated entity is a university
+  ?university a dbo:University .
+
+  # Retrieve the English label of the university
+  ?university rdfs:label ?universityName .
+  FILTER (lang(?universityName) = 'en') .
+}
+GROUP BY ?universityName
+ORDER BY DESC(?nobelWinners)
+LIMIT 10

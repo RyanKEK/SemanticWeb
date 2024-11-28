@@ -1,0 +1,36 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dbc: <http://dbpedia.org/resource/Category:>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?countryName (GROUP_CONCAT(UCASE(?languageName); separator="|") AS ?Languages)
+WHERE {
+  # Select entities that are instances of a country
+  ?country a dbo:Country .
+
+  # Retrieve the English label for the country
+  ?country rdfs:label ?countryName .
+  FILTER (lang(?countryName) = 'en') .
+
+  # Filter countries whose names start with "A"
+  FILTER (STRSTARTS(?countryName, "A")) .
+
+  # Ensure the country is in Europe or North America using Categories
+  {
+    ?country dct:subject dbc:Countries_in_Europe .
+  }
+  UNION
+  {
+    ?country dct:subject dbc:Countries_in_North_America .
+  }
+
+  # Optionally retrieve associated languages
+  OPTIONAL {
+    ?country dbo:language ?language .
+    ?language rdfs:label ?languageName .
+    FILTER (lang(?languageName) = 'en') .
+  }
+}
+GROUP BY ?countryName
+ORDER BY ASC(?countryName)

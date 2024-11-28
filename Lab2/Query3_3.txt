@@ -1,0 +1,30 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(DISTINCT ?winner) AS ?numImmigrants)
+WHERE {
+  # Select individuals who have received the Nobel Prize in Physics
+  ?winner dbo:award dbr:Nobel_Prize_in_Physics .
+
+  # Retrieve the place of birth
+  ?winner dbo:birthPlace ?birthPlace .
+  
+  # Retrieve the country of birth
+  ?birthPlace dbo:country ?birthCountry .
+
+  # Retrieve associated universities via almaMater or affiliation
+  {
+    ?winner dbo:almaMater ?university .
+  }
+  UNION
+  {
+    ?winner dbo:affiliation ?university .
+  }
+
+  # Retrieve the country of the university
+  ?university dbo:country ?universityCountry .
+
+  # Ensure that the country of birth is different from the country of the university
+  FILTER (?birthCountry != ?universityCountry) .
+}

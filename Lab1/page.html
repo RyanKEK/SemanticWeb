@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unreal Engine 5</title>
+    
+    <!-- JSON-LD Annotations -->
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Unreal Engine 5",
+      "softwareVersion": "5.0",
+      "author": {
+        "@type": "Organization",
+        "name": "Epic Games",
+        "url": "https://www.epicgames.com"
+      },
+      "url": "https://www.unrealengine.com/en-US/unreal-engine-5",
+      "description": "Unreal Engine 5 is a next-generation game engine offering cutting-edge features like Nanite and Lumen."
+    }
+    </script>
+    
+</head>
+<body>
+
+    <!-- RDFa Annotations -->
+    <div vocab="http://schema.org/" typeof="SoftwareApplication">
+        <h1 property="name">Unreal Engine 5</h1>
+        <p property="description">
+            Unreal Engine 5 is a next-generation game engine offering cutting-edge features like Nanite and Lumen.
+        </p>
+        <p>
+            <strong>Version:</strong> <span property="softwareVersion">5.0</span><br>
+            <strong>Developer:</strong> 
+            <span property="author" typeof="Organization">
+                <span property="name">Epic Games</span> |
+                <a property="url" href="https://www.epicgames.com">Website</a>
+            </span>
+        </p>
+        <p>
+            <strong>Learn More:</strong> <a property="url" href="https://www.unrealengine.com/en-US/unreal-engine-5">Unreal Engine 5 Official Page</a>
+        </p>
+    </div>
+
+    <!-- Microdata Annotations -->
+    <div itemscope itemtype="http://schema.org/SoftwareApplication">
+        <h2>About Unreal Engine 5</h2>
+        <p>
+            <strong>Description:</strong> <span itemprop="description">
+                Unreal Engine 5 is a next-generation game engine offering cutting-edge features like Nanite and Lumen.
+            </span>
+        </p>
+        <p>
+            <strong>Version:</strong> <span itemprop="softwareVersion">5.0</span><br>
+            <strong>Developer:</strong> 
+            <span itemprop="author" itemscope itemtype="http://schema.org/Organization">
+                <span itemprop="name">Epic Games</span> |
+                <a href="https://www.epicgames.com" itemprop="url">Website</a>
+            </span>
+        </p>
+        <p>
+            <strong>Official Page:</strong> <a href="https://www.unrealengine.com/en-US/unreal-engine-5" itemprop="url">Unreal Engine 5</a>
+        </p>
+    </div>
+
+</body>
+</html>
